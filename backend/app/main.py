@@ -1,10 +1,11 @@
 from fastapi import FastAPI
+
+from .db.models import Base
+from .db.session import engine
 from .api.v1.endpoints import rcm
 
-app = FastAPI(
-    title="Quanntaum Predict RCM Analysis API",
-    version="0.1.0"
-)
+Base.metadata.create_all(bind=engine)
 
-# Include the RCM router
-app.include_router(rcm.router, prefix="/api/v1/rcm")
+app = FastAPI()
+
+app.include_router(rcm.router, prefix="/api/v1")
