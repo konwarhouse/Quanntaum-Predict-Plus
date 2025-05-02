@@ -1,6 +1,40 @@
-from pydantic import BaseModel
+from sqlalchemy import Column, String, Integer, Float, DateTime, Boolean
+from sqlalchemy.ext.declarative import declarative_base
+import datetime
 
-class RCM(BaseModel):
-    id: int
-    name: str
-    description: str
+Base = declarative_base()
+
+class RCMRecord(Base):
+    __tablename__ = "rcm_records"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    system_component = Column(String, nullable=False)
+    asset_type = Column(String)
+    function = Column(String)
+    functional_failure = Column(String)
+    failure_mode = Column(String)
+    failure_cause = Column(String)
+    failure_effect = Column(String)
+    severity = Column(Integer)
+    occurrence = Column(Float)
+    detection = Column(Integer)
+    rpn = Column(Integer)
+    quantitative_criticality = Column(Float)
+    failure_rate = Column(Float)
+    mode_ratio = Column(Float)
+    probability_of_loss = Column(Float)
+    mission_time = Column(Float)
+    risk_acceptance = Column(String(1))
+    regulatory_flag = Column(String(1))
+    approval_status = Column(String)
+    current_controls = Column(String)
+    proposed_maintenance_task = Column(String)
+    task_type = Column(String)
+    interval = Column(String)
+    cost_of_implementation = Column(String)
+    mitigation_effectiveness = Column(String)
+    verification_method = Column(String)
+    responsible = Column(String)
+    lessons_learned = Column(String)
+    comments = Column(String)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
